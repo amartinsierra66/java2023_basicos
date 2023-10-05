@@ -53,15 +53,14 @@ public class PedidosService {
 				//variable que va a contener los datos del pedido más reciente
 				pedidoReciente=new Pedido(datos[0],LocalDate.parse(datos[1]),Double.parseDouble(datos[2]));
 				LocalDate fechaReciente=pedidoReciente.getFechaPedido();
-				linea=bf.readLine();
-				while(linea!=null) {
+				
+				while((linea=bf.readLine())!=null) {
 					datos=linea.split(",");
 					Pedido p=new Pedido(datos[0],LocalDate.parse(datos[1]),Double.parseDouble(datos[2]));
 					if(p.getFechaPedido().isAfter(fechaReciente)) { //si encontramos una fecha más reciente, actualizamos variables
 						fechaReciente=p.getFechaPedido();
 						pedidoReciente=p;
 					}					
-					linea=bf.readLine();
 				}
 			}
 			catch(IOException ex) {
@@ -75,14 +74,14 @@ public class PedidosService {
 		try (
 				FileReader f=new FileReader(dir);
 				BufferedReader bf=new BufferedReader(f);){
-				String linea=bf.readLine();
-				while(linea!=null) {
+				String linea;
+				while((linea=bf.readLine())!=null) {
 					String[] datos=linea.split(",");
 					Pedido p=new Pedido(datos[0],LocalDate.parse(datos[1]),Double.parseDouble(datos[2]));
 					if(p.getPrecio()<precioMax) {
 						resultado.add(p);
 					}
-					linea=bf.readLine();
+					
 				}
 
 			}
@@ -99,14 +98,13 @@ public class PedidosService {
 		try (
 				FileReader f=new FileReader(dir);
 				BufferedReader bf=new BufferedReader(f);){
-				String linea=bf.readLine();
-				while(linea!=null) {
+				String linea;
+				while((linea=bf.readLine())!=null) {
 					String[] datos=linea.split(",");
 					Pedido p=new Pedido(datos[0],LocalDate.parse(datos[1]),Double.parseDouble(datos[2]));
 					if(p.getFechaPedido().isBefore(referencia)) {
 						resultado.add(p);
 					}
-					linea=bf.readLine();
 				}
 
 			}
