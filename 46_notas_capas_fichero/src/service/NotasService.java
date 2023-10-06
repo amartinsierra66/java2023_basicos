@@ -62,6 +62,25 @@ public class NotasService {
 			}
 		return contador;
 	}
+	public int suspensos() {
+		int contador=0;
+		try (
+				FileReader f=new FileReader(dir);
+				BufferedReader bf=new BufferedReader(f);){
+				String nota=bf.readLine();
+				while(nota!=null) {
+					if(Double.parseDouble(nota)<5) {
+						contador++;
+					}
+					nota=bf.readLine();
+				}
+
+			}
+			catch(IOException ex) {
+				ex.printStackTrace();
+			}
+		return contador;
+	}
 	public ArrayList<Double> notas(){
 		ArrayList<Double> notas=new ArrayList<>();
 		try (
